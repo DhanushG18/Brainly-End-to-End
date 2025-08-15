@@ -1,0 +1,23 @@
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# TypeScript cache
+*.tsbuildinfo
+
+.env
+
+# Build outputs
+dist/
+build/
+.cache/
+
+
+# Logs
+logs/
+*.log
+
+# TypeScript cache
+*.tsbuildinfo

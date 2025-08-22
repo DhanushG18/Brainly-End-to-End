@@ -16,23 +16,6 @@ interface AuthRequest extends Request{
 const app= express();
 app.use(express.json());
 
-if (!MONGO_URL) {
-  throw new Error("❌ MONGO_URL not found in environment");
-}
-
-// ✅ Connect to MongoDB
-mongoose.connect(MONGO_URL)
-  .then(() => {
-    console.log("✅ Connected to MongoDB");
-    app.listen(3000, () => {
-      console.log("🚀 Server running at http://localhost:3000");
-    });
-  })
-  .catch(err => {
-    console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
-  });
-
 app.post("/api/v1/signup" , async(req,res) => {
     
     const username = req.body.username;
@@ -45,10 +28,10 @@ app.post("/api/v1/signup" , async(req,res) => {
     })
     res.json({
         msg: "User signed up"
-        //status codes
+        
     })
 } catch(e: any) {
-    if (e.code === 11000) { // Mongo duplicate key error
+    if (e.code === 11000) {
         return res.status(409).json({ msg: "User already exists" });
     }
     return res.status(500).json({ msg: "Something went wrong", error: e.message });
